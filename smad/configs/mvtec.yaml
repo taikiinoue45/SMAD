@@ -1,27 +1,43 @@
 params:
-  epochs: 300
-  device: cuda:0
-  category: bottle
-  cross_validation: 0
-  batch_size: 4
-  tracking_uri: file:///app/SMAD/smad/mlruns
-  experiment_name: mvtec
-  run_name: ${params.category}_cv${params.cross_validation}
+  epochs: 100
+  category: wood
+  num_train_images: 1
+  height: 256
+  width: 256
+  mean: 0
+  std: 1
+  num_basis: 10
+  patch_size: 8
+  tolerance: 1e-8
 
-model:
-  name:
-  args:
+mlflow:
+  tracking_uri: databricks
+  experiment_name: /Users/inoue@nablas.com/SMAD_mvtec
+  run_name: ${params.category}
 
 transforms:
   train:
-    - name:
+    - name: albumentations - Resize
       args:
-  val:
-    - name:
+        height: ${params.height}
+        width: ${params.width}
+        p: 1
+    - name: albumentations - Normalize
       args:
+        mean: ${params.mean}
+        std: ${params.std}
+        p: 1
   test:
-    - name:
+    - name: albumentations - Resize
       args:
+        height: ${params.height}
+        width: ${params.width}
+        p: 1
+    - name: albumentations - Normalize
+      args:
+        mean: ${params.mean}
+        std: ${params.std}
+        p: 1
 
 datasets:
   train:
@@ -29,56 +45,26 @@ datasets:
     args:
       data_dir: /data
       query_list:
-        - cv${params.cross_validation}=='train' & category=='${params.category}'
-      debug: False
-  val:
-    name: smad.datasets - MVTecDataset
-    args:
-      data_dir: /data
-      query_list:
-        - cv${params.cross_validation}=='val' & category=='${params.category}'
-      debug: False
+        - mode=='train' & category=='${params.category}'
   test:
     name: smad.datasets - MVTecDataset
     args:
       data_dir: /data
       query_list:
-        - cv${params.cross_validation}=='test' & category=='${params.category}'
-      debug: false
+        - mode=='test' & category=='${params.category}'
 
 dataloaders:
   train:
     name: torch.utils.data - DataLoader
     args:
-      batch_size: ${params.batch_size}
-      num_workers: ${params.batch_size}
-      pin_memory: True
-      shuffle: True
-  val:
-    name: torch.utils.data - DataLoader
-    args:
-      batch_size: ${params.batch_size}
-      num_workers: ${params.batch_size}
+      batch_size: ${params.num_train_images}
+      num_workers: ${params.num_train_images}
       pin_memory: True
       shuffle: True
   test:
     name: torch.utils.data - DataLoader
     args:
-      batch_size: ${params.batch_size}
-      num_workers: ${params.batch_size}
+      batch_size: 1
+      num_workers: 1
       pin_memory: True
       shuffle: True
-
-optimizer:
-  name:
-  args:
-
-scheduler:
-  name:
-  args:
-
-criterions:
-
-early_stopping:
-  name: smad.utils - EarlyStopping
-  args:

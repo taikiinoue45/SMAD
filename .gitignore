@@ -3,11 +3,11 @@ launch.json
 settings.json
 .DS_Store
 Untitled.ipynb
-sandbox.ipynb
-sandbox.py
+sandbox.*
 *.pth
 outputs/
 mlruns/
+MVTec/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
