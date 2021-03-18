@@ -14,27 +14,49 @@ PyTorch re-implementation of
 
 ## 1. AUROC Scores
 
-| category   | Paper | My Implementation |
+| Category   | Paper | My Implementation |
 | :-         | :-    | :-                |
-| zipper     | -     | -                 |
-| wood       | -     | -                 |
-| transistor | -     | -                 |
-| toothbrush | -     | -                 |
-| tile       | -     | -                 |
-| screw      | -     | -                 |
-| pill       | -     | -                 |
-| metal_nut  | -     | -                 |
-| leather    | -     | -                 |
-| hazelnut   | -     | -                 |
-| grid       | -     | -                 |
-| carpet     | -     | -                 |
-| capsule    | -     | -                 |
-| cable      | -     | -                 |
-| bottle     | -     | -                 |
+| zipper     | -     | 0.743             |
+| wood       | -     | 0.934             |
+| transistor | -     | 0.462             |
+| toothbrush | -     | 0.758             |
+| tile       | -     | 0.862             |
+| screw      | -     | 0.744             |
+| pill       | -     | 0.467             |
+| metal_nut  | -     | 0.402             |
+| leather    | -     | 0.766             |
+| hazelnut   | -     | 0.967             |
+| grid       | -     | 0.772             |
+| carpet     | -     | 0.375             |
+| capsule    | -     | 0.577             |
+| cable      | -     | 0.408             |
+| bottle     | -     | 0.625             |
 
 <br>
 
-## 2. Graphical Results
+## 2. PRO30 Scores
+
+| Category   | Paper | My Implementation |
+| :-         | :-    | :-                |
+| zipper     | -     | 0.727             |
+| wood       | -     | 0.822             |
+| transistor | -     | 0.659             |
+| toothbrush | -     | 0.902             |
+| tile       | -     | 0.645             |
+| screw      | -     | 0.951             |
+| pill       | -     | 0.873             |
+| metal_nut  | -     | 0.700             |
+| leather    | -     | 0.768             |
+| hazelnut   | -     | 0.976             |
+| grid       | -     | 0.642             |
+| carpet     | -     | 0.515             |
+| capsule    | -     | 0.796             |
+| cable      | -     | 0.658             |
+| bottle     | -     | 0.705             |
+
+<br>
+
+## 3. Graphical Results
 
 ### zipper
 <p align="left">
@@ -113,36 +135,9 @@ PyTorch re-implementation of
 
 <br>
 
-## 3. Requirements
+## 4. Requirements
 - CUDA 10.2
 - nvidia-docker2
-
-<br>
-
-## 4. Usage
-
-a) Download docker image and run docker container
-```
-docker pull taikiinoue45/mvtec:smad
-docker run --runtime nvidia -it --workdir /app --network host taikiinoue45/mvtec:smad /usr/bin/zsh
-```
-
-b) Download this repository
-```
-git clone https://github.com/taikiinoue45/SMAD.git
-cd /app/SMAD/smad
-```
-
-c) Run experiments
-```
-sh run.sh
-```
-
-d) Visualize experiments
-```
-mlflow ui
-```
-
 
 <br>
 
